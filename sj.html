@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Inspire & Crée : Portfolio de Steeve Jordan</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="sj.css">
+  <!-- CSS Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-sA+e2rJk0+qI2O2z0gM3+06Sgo7pLj+0I1p+3wJKtnw="
+      crossorigin=""/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+  <header class="main-header">
+    <nav class="navbar header-nav navbar-expand-lg">
+      <div class="container">
+        <a href="#" class="navbar-brand">
+          <h4 class="mb-0">Steeve <span class="text-primaire">Jordan</span></h4>
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-toggle">
+          <ul class="navbar-nav mx-auto">
+            <li>
+              <a href="#accueil" class="nav-link" data-target="accueil">Accueil</a>
+            </li>
+            <li>
+              <a href="#passions" class="nav-link" data-target="passions">Passions</a>
+            </li>
+            <li>
+              <a href="#formations" class="nav-link" data-target="formations">Formations</a>
+            </li>
+            <li>
+              <a href="#competences" class="nav-link" data-target="competences">Compétences</a>
+            </li>
+            <li>
+              <a href="#projets" class="nav-link" data-target="projets">Projets</a>
+            </li>
+          </ul> 
+        </div>
+        <!-- Bouton -->
+        <div class="ms-auto d-none d-lg-block">
+          <a class="colored-btn" href="#Contact">Contact</a>
+        </div>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Conteneur pour les sections -->
+  <main>
+    <!-- Section Accueil -->
+    <section id="accueil" class="content-section d-block">
+      <section id="home" class="home-section bg-gray">
+        <div class="container">
+          <div class="anim-elements position-relative">
+            <div class="anim-elements position-relative">
+              <div class="anim-element position-absolute" style="top: 10%; left: 10%;"><i class="bx bxl-java text-primary"></i></div>
+              <div class="anim-element position-absolute" style="top: 20%; left: 30%;"><i class="bx bxl-php text-success"></i></div>
+              <div class="anim-element position-absolute" style="top: 30%; left: 50%;"><i class="bx bxl-react text-danger"></i></div>
+              <div class="anim-element position-absolute" style="top: 40%; left: 70%;"><i class="bx bxl-android text-warning"></i></div>
+              <div class="anim-element position-absolute" style="top: 50%; left: 90%;"><i class="bx bxl-apple text-info"></i></div>
+              <div class="anim-element position-absolute" style="top: 60%; left: 10%;"><i class="bx bxl-html text-secondary"></i></div>
+              <div class="anim-element position-absolute" style="top: 70%; left: 30%;"><i class="bx bxl-css text-dark"></i></div>
+              <div class="anim-element position-absolute" style="top: 80%; left: 50%;"><i class="bx bxl-angular text-primary"></i></div>
+              <div class="anim-element position-absolute" style="top: 90%; left: 70%;"><i class="bx bxl-node.js text-success"></i></div>
+            </div>
+         </div>
+          <div class="row gy-5 align-items-center">
+            <div class="col-lg-6">
+              <div class="home-intro text-center text-lg-start">
+                <h5>Bonjour, mon nom est M. Steeve Jordan</h5>
+                <h1><span id="type-it">ETUDIANT</span></h1>
+                <h4>En 3ème année, passionné d'innovation et de technologie</h4>
+                <p>Situé à Annemasse, France</p>
+                <a href="#Localisation" class="colored-btn mt-1" id="show-map-btn">
+                  LOCALISATION
+                </a>
+                <!-- Conteneur pour la carte -->
+                <div id="map" style="height: 400px; width: 100%; display: none; margin-top: 20px;"></div>
+              </div>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0">
+              <div class="Acceuil-image text-center">
+                <img src="steeve.jpg" alt="Steeve Jordan" class="rounded-circle">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <div class="row gy-5 align-items-center">
+            <div class="col-lg-6 text-center">
+              <img src="photo.jpg" id="animated-image">
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+              <div class="about-text">
+                <h3 class="h1 mb-3 text-dark fw-semibold">Hehe, soyez le bienvenu.</h3>
+                <p>Je me prénomme Steeve Jordan, et je suis passionné par tout ce qui concerne les nouvelles technologies
+                  contribuant à l'innovation et au développement de la vie courante. Tout au long de ce portfolio, vous en découvrirez plus sur moi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Section Passions -->
+    <section id="passions" class="content-section d-none">
+      <video autoplay loop muted playsinline id="bg-video">
+        <source src="video_sj.mp4" type="video/mp4">
+      </video>
+      <div id="text-container" class="position-absolute top-50 start-50 translate-middle text-white text-center">
+          <h1 id="welcome-text">Bonjour</h1>
+      </div>
+    </section>
+
+    <!-- Section Formations -->
+    <section id="formations" class="content-section d-none">
+      <div class="container">
+        <h2>Formations</h2>
+        <p>Contenu des formations...</p>
+      </div>
+    </section>
+
+    <!-- Section Compétences -->
+    <section id="competences" class="content-section d-none">
+      <div class="container">
+        <h2>Compétences</h2>
+        <p>Contenu des compétences...</p>
+      </div>
+    </section>
+
+    <!-- Section Projets -->
+    <section id="projets" class="content-section d-none">
+      <div class="container">
+        <h2>Projets</h2>
+        <p>Contenu des projets...</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="bootstrap.min.js"></script>
+  <script src="jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="sj.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- JS Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-nR8+6KmfN6AyM+S1tIdEnq4ZpC1giWz/1Jtgh3prV7k="
+        crossorigin=""></script>
+</body>
+</html>
