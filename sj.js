@@ -33,6 +33,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Afficher la section par défaut (Accueil) au démarrage
 window.addEventListener('load', () => {
   const defaultSection = 'accueil'; // Section par défaut
+  const defaultSection = 'accueil'; // Section par défaut
   showSection(defaultSection);
 });
 
@@ -81,3 +82,5 @@ document.addEventListener("DOMContentLoaded", () => {
     animateElement(element);
   });
 });
+
+
