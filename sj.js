@@ -143,7 +143,57 @@ function changePassion() {
     index = (index + 1) % passions.length; // Passer à la passion suivante
   }, 1000); // Temps pour l'effet de fondu
 
-  setTimeout(changePassion, 9000); // Changement toutes les 3 secondes
+  setTimeout(changePassion, 6000); // Changement toutes les 3 secondes
 }
 
 changePassion();
+
+
+// Liste des projets avec leurs liens officiels
+const projets = [
+  { nom: "GitHub - Mon Portfolio", lien: "https://github.com" },
+  { nom: "Application Mobile - Google Play", lien: "https://play.google.com/store" },
+  { nom: "Blog Personnel - Medium", lien: "https://medium.com" },
+  { nom: "Projet Data Science - Kaggle", lien: "https://www.kaggle.com" },
+  { nom: "E-commerce - Amazon", lien: "https://www.amazon.com" }
+];
+
+// Sélectionne la section projets
+const sectionProjets = document.querySelector("#projets .container");
+
+if (sectionProjets) {
+  // Crée un conteneur pour les boutons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.style.display = "flex";
+  buttonContainer.style.flexWrap = "wrap";
+  buttonContainer.style.gap = "10px";
+  buttonContainer.style.marginTop = "20px";
+
+  // Génère les boutons dynamiquement
+  projets.forEach(projet => {
+    const bouton = document.createElement("button");
+    bouton.textContent = projet.nom;
+    bouton.style.padding = "10px 15px";
+    bouton.style.border = "none";
+    bouton.style.borderRadius = "5px";
+    bouton.style.cursor = "pointer";
+    bouton.style.backgroundColor = "#3498db";
+    bouton.style.color = "#fff";
+    bouton.style.fontSize = "16px";
+    bouton.style.transition = "background 0.3s";
+
+    // Effet hover
+    bouton.onmouseover = () => bouton.style.backgroundColor = "#2980b9";
+    bouton.onmouseout = () => bouton.style.backgroundColor = "#3498db";
+
+    // Redirection au clic
+    bouton.onclick = () => window.open(projet.lien, "_blank");
+
+    // Ajoute le bouton au conteneur
+    buttonContainer.appendChild(bouton);
+  });
+
+  // Ajoute le conteneur à la section projets
+  sectionProjets.appendChild(buttonContainer);
+}
+
