@@ -197,3 +197,84 @@ if (sectionProjets) {
   sectionProjets.appendChild(buttonContainer);
 }
 
+
+// SECTION FORMATION
+// Liste des formations
+const formations = [
+  { titre: "Bac C (Maths)", lieu: "Cameroun", annee: "Année d'obtention : XXXX" },
+  { titre: "Première S", lieu: "LPO Glière", annee: "Année : XXXX" },
+  { titre: "Terminale S", lieu: "LPO Glière", annee: "Année : XXXX" },
+  { titre: "1ère Année Université", lieu: "USMB", annee: "Année : XXXX" }
+];
+
+// Sélectionne la section formations
+const sectionFormations = document.querySelector("#formations .container");
+
+if (sectionFormations) {
+  // Créer un conteneur pour les formations
+  const formationContainer = document.createElement("div");
+  formationContainer.style.display = "flex";
+  formationContainer.style.flexDirection = "column";
+  formationContainer.style.gap = "15px";
+  formationContainer.style.marginTop = "20px";
+
+  // Générer les formations dynamiquement
+  formations.forEach(formation => {
+    const formationDiv = document.createElement("div");
+    formationDiv.style.padding = "10px";
+    formationDiv.style.borderRadius = "5px";
+    formationDiv.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+    formationDiv.style.color = "#fff";
+    formationDiv.style.fontSize = "18px";
+    formationDiv.style.transition = "transform 0.3s";
+
+    // Animation au survol
+    formationDiv.onmouseover = () => formationDiv.style.transform = "scale(1.05)";
+    formationDiv.onmouseout = () => formationDiv.style.transform = "scale(1)";
+
+    formationDiv.innerHTML = `<strong>${formation.titre}</strong> - ${formation.lieu} <br> <small>${formation.annee}</small>`;
+
+    formationContainer.appendChild(formationDiv);
+  });
+
+  // Ajouter le conteneur à la section formations
+  sectionFormations.appendChild(formationContainer);
+}
+
+// === Animation en fond d'écran ===
+function createAnimatedBackground() {
+  const section = document.getElementById("formations");
+  if (!section) return;
+
+  section.style.position = "relative";
+  section.style.overflow = "hidden";
+
+  function createParticle() {
+    const particle = document.createElement("div");
+    particle.style.position = "absolute";
+    particle.style.width = "10px";
+    particle.style.height = "10px";
+    particle.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+    particle.style.borderRadius = "50%";
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.opacity = "0";
+    particle.style.transition = "transform 5s linear, opacity 5s linear";
+
+    section.appendChild(particle);
+
+    setTimeout(() => {
+      particle.style.transform = `translateY(-100vh) scale(${Math.random() * 1.5})`;
+      particle.style.opacity = "1";
+    }, 100);
+
+    setTimeout(() => {
+      particle.remove();
+    }, 5000);
+  }
+
+  setInterval(createParticle, 500);
+}
+
+createAnimatedBackground();
+
