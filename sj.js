@@ -60,31 +60,10 @@ changeBackgroundColorSmoothly();
       loop: true
     });
 
-    // Gestion des animations
-    const animElements = document.querySelectorAll(".anim-element");
+   document.addEventListener("DOMContentLoaded", function() {
+    AOS.init();  // Initialiser AOS après le chargement du DOM
+});
 
-    function getRandomValue(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function animateElement(element) {
-      const duration = getRandomValue(0.5, 1.5);
-      const translateX = getRandomValue(-100, 100);
-      const translateY = getRandomValue(-100, 100);
-      const rotate = getRandomValue(-360, 360);
-      const scale = getRandomValue(0.8, 1.5);
-
-      element.style.transition = `transform ${duration}s linear`;
-      element.style.transform = `translate(${translateX}px, ${translateY}px)`;
-      element.style.fontSize = "4rem";
-
-      setTimeout(() => animateElement(element), duration * 1000);
-    }
-
-    animElements.forEach((element) => {
-      animateElement(element);
-    });
-  });
 
   // Fonction pour afficher la section correspondante
   function showSection(sectionId) {
@@ -143,7 +122,7 @@ function changePassion() {
     index = (index + 1) % passions.length; // Passer à la passion suivante
   }, 1000); // Temps pour l'effet de fondu
 
-  setTimeout(changePassion, 6000); // Changement toutes les 3 secondes
+  setTimeout(changePassion, 6000); // Changement toutes les 6 secondes
 }
 
 changePassion();
