@@ -278,3 +278,108 @@ function createAnimatedBackground() {
 
 createAnimatedBackground();
 
+
+//CONTACT
+document.addEventListener("DOMContentLoaded", function () {
+  // Gestion du clic sur le bouton "Contact"
+  const contactBtn = document.querySelector("a.colored-btn[href='#Contact']");
+  if (contactBtn) {
+    contactBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Vérifier si la section Contact existe déjà
+      let contactSection = document.getElementById("Contact");
+      if (!contactSection) {
+        // Si elle n'existe pas, la créer dynamiquement
+        contactSection = document.createElement("section");
+        contactSection.id = "Contact";
+        // On lui ajoute les classes "content-section" et "d-none" pour qu'elle soit masquée par défaut
+        contactSection.className = "content-section d-none";
+
+        // Création du conteneur
+        const container = document.createElement("div");
+        container.className = "container";
+
+        // Titre de la section
+        const title = document.createElement("h2");
+        title.textContent = "Contactez-moi";
+        container.appendChild(title);
+
+        // Création du formulaire
+        const form = document.createElement("form");
+        form.id = "contact-form";
+        // Ici, on utilise mailto: (mais pour une solution automatique, il faut un service tiers)
+        form.action = "mailto:steevejordan19@yahoo.com";
+        form.method = "post";
+        form.enctype = "text/plain";
+
+        // Fonction utilitaire pour créer un groupe (label + input)
+        function createInputGroup(labelText, inputType, inputName) {
+          const group = document.createElement("div");
+          group.style.marginBottom = "15px";
+
+          const label = document.createElement("label");
+          label.textContent = labelText;
+          label.style.display = "block";
+          label.style.marginBottom = "5px";
+
+          const input = document.createElement("input");
+          input.type = inputType;
+          input.name = inputName;
+          input.required = true;
+          input.style.width = "100%";
+          input.style.padding = "8px";
+          input.style.boxSizing = "border-box";
+
+          group.appendChild(label);
+          group.appendChild(input);
+          return group;
+        }
+
+        // Ajout des champs du formulaire
+        form.appendChild(createInputGroup("Prénom :", "text", "prenom"));
+        form.appendChild(createInputGroup("Nom :", "text", "nom"));
+        form.appendChild(createInputGroup("Votre Email :", "email", "email"));
+
+        // Création du groupe pour le message (textarea)
+        const messageGroup = document.createElement("div");
+        messageGroup.style.marginBottom = "15px";
+        const messageLabel = document.createElement("label");
+        messageLabel.textContent = "Message :";
+        messageLabel.style.display = "block";
+        messageLabel.style.marginBottom = "5px";
+        const textarea = document.createElement("textarea");
+        textarea.name = "message";
+        textarea.required = true;
+        textarea.style.width = "100%";
+        textarea.style.padding = "8px";
+        textarea.rows = 5;
+        messageGroup.appendChild(messageLabel);
+        messageGroup.appendChild(textarea);
+        form.appendChild(messageGroup);
+
+        // Bouton de soumission
+        const submitBtn = document.createElement("button");
+        submitBtn.type = "submit";
+        submitBtn.textContent = "Envoyer";
+        submitBtn.style.padding = "10px 20px";
+        submitBtn.style.backgroundColor = "#3498db";
+        submitBtn.style.color = "#fff";
+        submitBtn.style.border = "none";
+        submitBtn.style.cursor = "pointer";
+        form.appendChild(submitBtn);
+
+        // Assemblage du formulaire dans le conteneur
+        container.appendChild(form);
+        contactSection.appendChild(container);
+
+        // Ajout de la section Contact à la balise <main> sans effacer les autres sections
+        document.querySelector("main").appendChild(contactSection);
+      }
+
+      // Utiliser la fonction showSection pour afficher la section "Contact"
+      showSection("Contact");
+      window.history.pushState({}, "", "#Contact");
+    });
+  }
+});
