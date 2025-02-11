@@ -1,56 +1,64 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Initialisation des compétences
-    const skills = [
-      { name: "HTML/CSS", level: 90 },
-      { name: "Pharo", level: 70 },
-      { name: "JavaScript", level: 85 },
-      { name: "Rédaction de script", level: 75 }
-    ];
-    // Fonction pour changer la couleur de fond et adapter tous les textes
-function changeBackgroundColorSmoothly() {
-  const section = document.getElementById("competences");
-  if (!section) return;
+  // === Initialisation des compétences avec Chart.js ===
+  const skills = [
+    { name: "HTML/CSS", level: 90 },
+    { name: "Pharo", level: 70 },
+    { name: "JavaScript", level: 85 },
+    { name: "Rédaction de script", level: 75 }
+  ];
 
-  let hue = 0; // Teinte de départ
-
-  function updateColor() {
-    hue = (hue + 1) % 360; // Cycle de couleurs HSL
-    const bgColor = `hsl(${hue}, 50%, 20%)`; // Fond sombre et doux
-    const textColor = `hsl(${hue}, 100%, 85%)`; // Texte clair et lisible
-
-    // Appliquer la couleur de fond
-    section.style.transition = "background-color 2s linear";
-    section.style.backgroundColor = bgColor;
-
-    // Adapter la couleur de tous les textes dans la section
-    section.querySelectorAll("h2, p, li, span, div").forEach(element => {
-      element.style.transition = "color 2s linear";
-      element.style.color = textColor;
+  const ctx = document.getElementById('skillsChart')?.getContext('2d');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: skills.map(skill => skill.name),
+        datasets: [{
+          label: 'Niveau de compétence (%)',
+          data: skills.map(skill => skill.level),
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
     });
-
-    setTimeout(updateColor, 100); // Mise à jour fluide
   }
 
-  updateColor();
-}
+  // === Changement de couleur de fond pour la section Compétences ===
+  function changeBackgroundColorSmoothly() {
+    const section = document.getElementById("competences");
+    if (!section) return;
 
-changeBackgroundColorSmoothly();
+    let hue = 0;
 
+    function updateColor() {
+      hue = (hue + 1) % 360;
+      const bgColor = `hsl(${hue}, 50%, 20%)`;
+      const textColor = `hsl(${hue}, 100%, 85%)`;
 
-    const container = document.getElementById("skills-container");
+      section.style.transition = "background-color 2s linear";
+      section.style.backgroundColor = bgColor;
 
-    if (container) {
-      skills.forEach(skill => {
-        const skillDiv = document.createElement("div");
-        skillDiv.innerHTML = `
-          <p>${skill.name}</p>
-          <div style="width: 100%; background-color: #ddd; height: 20px; border-radius: 5px; overflow: hidden;">
-            <div style="width: ${skill.level}%; background-color: #4caf50; height: 100%;"></div>
-          </div>
-        `;
-        container.appendChild(skillDiv);
+      section.querySelectorAll("h2, p, li, span, div").forEach(element => {
+        element.style.transition = "color 2s linear";
+        element.style.color = textColor;
       });
+
+      setTimeout(updateColor, 100);
     }
+
+    updateColor();
+  }
+
+  changeBackgroundColorSmoothly();
 
     // Initialisation du Typed.js
     new Typed("#type-it", {
@@ -60,12 +68,32 @@ changeBackgroundColorSmoothly();
       loop: true
     });
 
-   document.addEventListener("DOMContentLoaded", function() {
-    AOS.init();  // Initialiser AOS après le chargement du DOM
-});
+  // === Initialisation des animations des icônes ===
+  const animElements = document.querySelectorAll(".anim-element");
 
+  function getRandomValue(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
-  // Fonction pour afficher la section correspondante
+  function animateElement(element) {
+    const duration = getRandomValue(0.5, 1.5);
+    const translateX = getRandomValue(-100, 100);
+    const translateY = getRandomValue(-100, 100);
+    const rotate = getRandomValue(-360, 360);
+    const scale = getRandomValue(0.8, 1.5);
+
+    element.style.transition = `transform ${duration}s linear`;
+    element.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    element.style.fontSize = "4rem";
+
+    setTimeout(() => animateElement(element), duration * 1000);
+  }
+
+  animElements.forEach((element) => {
+    animateElement(element);
+  });
+
+  // === Gestion des sections ===
   function showSection(sectionId) {
     document.querySelectorAll(".content-section").forEach(section => {
       section.classList.add("d-none");
@@ -79,7 +107,6 @@ changeBackgroundColorSmoothly();
     }
   }
 
-  // Gestion des clics sur les liens de navigation
   document.querySelectorAll(".nav-link").forEach(link => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
@@ -89,13 +116,12 @@ changeBackgroundColorSmoothly();
     });
   });
 
-  // Affichage de la section par défaut au démarrage
   window.addEventListener("load", () => {
     const defaultSection = "accueil";
     showSection(defaultSection);
   });
 
-  // Gestion du header fixe lors du scroll
+  // === Gestion du header fixe ===
   window.addEventListener("scroll", function () {
     var scrolltop = window.scrollY;
     if (scrolltop >= 80) {
@@ -105,203 +131,128 @@ changeBackgroundColorSmoothly();
     }
   });
 
-  // Liste des passions à afficher
-const passions = ["Le football ⚽", "La natation 🏊‍♂️", "La cuisine 🍳", "La lecture 📖", "Les voyages ✈️", "La musique 🎵", "Les jeux vidéo 🎮"];
+  // === Gestion des passions ===
+  const passions = ["Le football ⚽", "La natation 🏊‍♂️", "La cuisine 🍳", "La lecture 📖", "Les voyages ✈️", "La musique 🎵", "Les jeux vidéo 🎮"];
+  let index = 0;
+  const textElement = document.getElementById("welcome-text");
 
-let index = 0;
-const textElement = document.getElementById("welcome-text");
+  function changePassion() {
+    if (!textElement) return;
 
-function changePassion() {
-  if (!textElement) return;
-
-  textElement.style.opacity = "0"; // Disparition en fondu
-
-  setTimeout(() => {
-    textElement.textContent = passions[index]; // Changer le texte
-    textElement.style.opacity = "1"; // Réapparition en fondu
-    index = (index + 1) % passions.length; // Passer à la passion suivante
-  }, 1000); // Temps pour l'effet de fondu
-
-  setTimeout(changePassion, 6000); // Changement toutes les 6 secondes
-}
-
-changePassion();
-
-
-// Liste des projets avec leurs liens officiels
-const projets = [
-  { nom: "GitHub - Mon Portfolio", lien: "https://github.com" },
-  { nom: "Application Mobile - Google Play", lien: "https://play.google.com/store" },
-  { nom: "Blog Personnel - Medium", lien: "https://medium.com" },
-  { nom: "Projet Data Science - Kaggle", lien: "https://www.kaggle.com" },
-  { nom: "E-commerce - Amazon", lien: "https://www.amazon.com" }
-];
-
-// Sélectionne la section projets
-const sectionProjets = document.querySelector("#projets .container");
-
-if (sectionProjets) {
-  // Crée un conteneur pour les boutons
-  const buttonContainer = document.createElement("div");
-  buttonContainer.style.display = "flex";
-  buttonContainer.style.flexWrap = "wrap";
-  buttonContainer.style.gap = "10px";
-  buttonContainer.style.marginTop = "20px";
-
-  // Génère les boutons dynamiquement
-  projets.forEach(projet => {
-    const bouton = document.createElement("button");
-    bouton.textContent = projet.nom;
-    bouton.style.padding = "10px 15px";
-    bouton.style.border = "none";
-    bouton.style.borderRadius = "5px";
-    bouton.style.cursor = "pointer";
-    bouton.style.backgroundColor = "#3498db";
-    bouton.style.color = "#fff";
-    bouton.style.fontSize = "16px";
-    bouton.style.transition = "background 0.3s";
-
-    // Effet hover
-    bouton.onmouseover = () => bouton.style.backgroundColor = "#2980b9";
-    bouton.onmouseout = () => bouton.style.backgroundColor = "#3498db";
-
-    // Redirection au clic
-    bouton.onclick = () => window.open(projet.lien, "_blank");
-
-    // Ajoute le bouton au conteneur
-    buttonContainer.appendChild(bouton);
-  });
-
-  // Ajoute le conteneur à la section projets
-  sectionProjets.appendChild(buttonContainer);
-}
-
-
-// SECTION FORMATION
-// Liste des formations
-const formations = [
-  { titre: "Bac C (Maths)", lieu: "Cameroun", annee: "Année d'obtention : XXXX" },
-  { titre: "Première S", lieu: "LPO Glière", annee: "Année : XXXX" },
-  { titre: "Terminale S", lieu: "LPO Glière", annee: "Année : XXXX" },
-  { titre: "1ère Année Université", lieu: "USMB", annee: "Année : XXXX" }
-];
-
-// Sélectionne la section formations
-const sectionFormations = document.querySelector("#formations .container");
-
-if (sectionFormations) {
-  // Créer un conteneur pour les formations
-  const formationContainer = document.createElement("div");
-  formationContainer.style.display = "flex";
-  formationContainer.style.flexDirection = "column";
-  formationContainer.style.gap = "15px";
-  formationContainer.style.marginTop = "20px";
-
-  // Générer les formations dynamiquement
-  formations.forEach(formation => {
-    const formationDiv = document.createElement("div");
-    formationDiv.style.padding = "10px";
-    formationDiv.style.borderRadius = "5px";
-    formationDiv.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
-    formationDiv.style.color = "#fff";
-    formationDiv.style.fontSize = "18px";
-    formationDiv.style.transition = "transform 0.3s";
-
-    // Animation au survol
-    formationDiv.onmouseover = () => formationDiv.style.transform = "scale(1.05)";
-    formationDiv.onmouseout = () => formationDiv.style.transform = "scale(1)";
-
-    formationDiv.innerHTML = `<strong>${formation.titre}</strong> - ${formation.lieu} <br> <small>${formation.annee}</small>`;
-
-    formationContainer.appendChild(formationDiv);
-  });
-
-  // Ajouter le conteneur à la section formations
-  sectionFormations.appendChild(formationContainer);
-}
-
-// === Animation en fond d'écran ===
-function createAnimatedBackground() {
-  const section = document.getElementById("formations");
-  if (!section) return;
-
-  section.style.position = "relative";
-  section.style.overflow = "hidden";
-
-  function createParticle() {
-    const particle = document.createElement("div");
-    particle.style.position = "absolute";
-    particle.style.width = "10px";
-    particle.style.height = "10px";
-    particle.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-    particle.style.borderRadius = "50%";
-    particle.style.top = `${Math.random() * 100}%`;
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.opacity = "0";
-    particle.style.transition = "transform 5s linear, opacity 5s linear";
-
-    section.appendChild(particle);
-
+    textElement.style.opacity = "0";
     setTimeout(() => {
-      particle.style.transform = `translateY(-100vh) scale(${Math.random() * 1.5})`;
-      particle.style.opacity = "1";
-    }, 100);
-
-    setTimeout(() => {
-      particle.remove();
-    }, 5000);
+      textElement.textContent = passions[index];
+      textElement.style.opacity = "1";
+      index = (index + 1) % passions.length;
+    }, 1000);
+    setTimeout(changePassion, 6000);
   }
 
-  setInterval(createParticle, 500);
-}
+  changePassion();
 
-createAnimatedBackground();
+  // === Gestion des projets ===
+  const projets = [
+    { nom: "GitHub - Mon Portfolio", lien: "https://github.com" },
+    { nom: "Application Mobile - Google Play", lien: "https://play.google.com/store" },
+    { nom: "Blog Personnel - Medium", lien: "https://medium.com" },
+    { nom: "Projet Data Science - Kaggle", lien: "https://www.kaggle.com" },
+    { nom: "E-commerce - Amazon", lien: "https://www.amazon.com" }
+  ];
 
+  const sectionProjets = document.querySelector("#projets .container");
+  if (sectionProjets) {
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.flexWrap = "wrap";
+    buttonContainer.style.gap = "10px";
+    buttonContainer.style.marginTop = "20px";
 
-//CONTACT
-document.addEventListener("DOMContentLoaded", function () {
-  // Gestion du clic sur le bouton "Contact"
+    projets.forEach(projet => {
+      const bouton = document.createElement("button");
+      bouton.textContent = projet.nom;
+      bouton.style.padding = "10px 15px";
+      bouton.style.border = "none";
+      bouton.style.borderRadius = "5px";
+      bouton.style.cursor = "pointer";
+      bouton.style.backgroundColor = "#3498db";
+      bouton.style.color = "#fff";
+      bouton.style.fontSize = "16px";
+      bouton.style.transition = "background 0.3s";
+
+      bouton.onmouseover = () => bouton.style.backgroundColor = "#2980b9";
+      bouton.onmouseout = () => bouton.style.backgroundColor = "#3498db";
+      bouton.onclick = () => window.open(projet.lien, "_blank");
+
+      buttonContainer.appendChild(bouton);
+    });
+
+    sectionProjets.appendChild(buttonContainer);
+  }
+
+  // === Gestion des formations ===
+  const formations = [
+    { titre: "Bac C (Maths)", lieu: "Cameroun", annee: "Année d'obtention : XXXX" },
+    { titre: "Première S", lieu: "LPO Glière", annee: "Année : XXXX" },
+    { titre: "Terminale S", lieu: "LPO Glière", annee: "Année : XXXX" },
+    { titre: "1ère Année Université", lieu: "USMB", annee: "Année : XXXX" }
+  ];
+
+  const sectionFormations = document.querySelector("#formations .container");
+  if (sectionFormations) {
+    const formationContainer = document.createElement("div");
+    formationContainer.style.display = "flex";
+    formationContainer.style.flexDirection = "column";
+    formationContainer.style.gap = "15px";
+    formationContainer.style.marginTop = "20px";
+
+    formations.forEach(formation => {
+      const formationDiv = document.createElement("div");
+      formationDiv.style.padding = "10px";
+      formationDiv.style.borderRadius = "5px";
+      formationDiv.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+      formationDiv.style.color = "#fff";
+      formationDiv.style.fontSize = "18px";
+      formationDiv.style.transition = "transform 0.3s";
+
+      formationDiv.onmouseover = () => formationDiv.style.transform = "scale(1.05)";
+      formationDiv.onmouseout = () => formationDiv.style.transform = "scale(1)";
+
+      formationDiv.innerHTML = `<strong>${formation.titre}</strong> - ${formation.lieu} <br> <small>${formation.annee}</small>`;
+      formationContainer.appendChild(formationDiv);
+    });
+
+    sectionFormations.appendChild(formationContainer);
+  }
+
+  // === Gestion du formulaire de contact ===
   const contactBtn = document.querySelector("a.colored-btn[href='#Contact']");
   if (contactBtn) {
     contactBtn.addEventListener("click", function (e) {
       e.preventDefault();
-
-      // Vérifier si la section Contact existe déjà
       let contactSection = document.getElementById("Contact");
       if (!contactSection) {
-        // Si elle n'existe pas, la créer dynamiquement
         contactSection = document.createElement("section");
         contactSection.id = "Contact";
-        // On lui ajoute les classes "content-section" et "d-none" pour qu'elle soit masquée par défaut
         contactSection.className = "content-section d-none";
-
-        // Création du conteneur
         const container = document.createElement("div");
         container.className = "container";
-
-        // Titre de la section
         const title = document.createElement("h2");
         title.textContent = "Contactez-moi";
         container.appendChild(title);
 
-        // Création du formulaire
         const form = document.createElement("form");
         form.id = "contact-form";
-        // Ici, on utilise mailto: (mais pour une solution automatique, il faut un service tiers)
         form.action = "mailto:steevejordan19@yahoo.com";
         form.method = "post";
         form.enctype = "text/plain";
 
-        // Fonction utilitaire pour créer un groupe (label + input)
         function createInputGroup(labelText, inputType, inputName) {
           const group = document.createElement("div");
           group.style.marginBottom = "15px";
-
           const label = document.createElement("label");
           label.textContent = labelText;
           label.style.display = "block";
           label.style.marginBottom = "5px";
-
           const input = document.createElement("input");
           input.type = inputType;
           input.name = inputName;
@@ -309,18 +260,15 @@ document.addEventListener("DOMContentLoaded", function () {
           input.style.width = "100%";
           input.style.padding = "8px";
           input.style.boxSizing = "border-box";
-
           group.appendChild(label);
           group.appendChild(input);
           return group;
         }
 
-        // Ajout des champs du formulaire
         form.appendChild(createInputGroup("Prénom :", "text", "prenom"));
         form.appendChild(createInputGroup("Nom :", "text", "nom"));
         form.appendChild(createInputGroup("Votre Email :", "email", "email"));
 
-        // Création du groupe pour le message (textarea)
         const messageGroup = document.createElement("div");
         messageGroup.style.marginBottom = "15px";
         const messageLabel = document.createElement("label");
@@ -337,7 +285,6 @@ document.addEventListener("DOMContentLoaded", function () {
         messageGroup.appendChild(textarea);
         form.appendChild(messageGroup);
 
-        // Bouton de soumission
         const submitBtn = document.createElement("button");
         submitBtn.type = "submit";
         submitBtn.textContent = "Envoyer";
@@ -348,15 +295,11 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.style.cursor = "pointer";
         form.appendChild(submitBtn);
 
-        // Assemblage du formulaire dans le conteneur
         container.appendChild(form);
         contactSection.appendChild(container);
-
-        // Ajout de la section Contact à la balise <main> sans effacer les autres sections
         document.querySelector("main").appendChild(contactSection);
       }
 
-      // Utiliser la fonction showSection pour afficher la section "Contact"
       showSection("Contact");
       window.history.pushState({}, "", "#Contact");
     });
